@@ -1,0 +1,53 @@
+{
+  "name": "monorepotest",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/monorepotest/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/monorepotest",
+        "main": "apps/monorepotest/src/main.ts",
+        "tsConfig": "apps/monorepotest/tsconfig.app.json",
+        "assets": ["apps/monorepotest/src/assets"],
+        "webpackConfig": "apps/monorepotest/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "monorepotest:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "monorepotest:build:development"
+        },
+        "production": {
+          "buildTarget": "monorepotest:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/monorepotest/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
