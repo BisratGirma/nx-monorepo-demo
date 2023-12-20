@@ -2,7 +2,10 @@
   "name": "@monorepotest/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "graph": "nx graph",
+    "start:auth": "nx serve auth"
+  },
   "private": true,
   "dependencies": {
     "axios": "^1.0.0",
